@@ -30,6 +30,33 @@ function createUsersTable() {
         console.log(result);
     });
 }
+function createAddressesTable() {
+    return __awaiter(this, void 0, void 0, function* () {
+        try {
+            const client = new pg_1.Client({
+                connectionString: CONNECTION_STRING,
+            });
+            yield client.connect();
+            const result = yield client.query(`
+        CREATE TABLE addresses (
+        id SERIAL PRIMARY KEY,
+          user_id INTEGER NOT NULL,
+          city VARCHAR(100) NOT NULL,
+          state VARCHAR(100) NOT NULL,
+          street VARCHAR(255) NOT NULL,
+          pincode VARCHAR(20),
+          created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+          FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+        )
+        `);
+            console.log("result ", result);
+        }
+        catch (error) {
+            console.log("error");
+            console.log(error);
+        }
+    });
+}
 function insertUsersTable(username, email, password) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
@@ -107,5 +134,4 @@ function getUserWithName(name) {
         }
     });
 }
-getUserWithEmail("rg535070@gmail.com");
-getUserWithName("Gurpreet Kaur");
+createAddressesTable();

@@ -22,6 +22,31 @@ async function createUsersTable() {
   console.log(result);
 }
 
+async function createAddressesTable() {
+  try {
+    const client = new Client({
+      connectionString: CONNECTION_STRING,
+    });
+    await client.connect();
+    const result = await client.query(`
+        CREATE TABLE addresses (
+        id SERIAL PRIMARY KEY,
+          user_id INTEGER NOT NULL,
+          city VARCHAR(100) NOT NULL,
+          state VARCHAR(100) NOT NULL,
+          street VARCHAR(255) NOT NULL,
+          pincode VARCHAR(20),
+          created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+          FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+        )
+        `);
+    console.log("result ", result);
+  } catch (error) {
+    console.log("error");
+    console.log(error);
+  }
+}
+
 async function insertUsersTable(
   username: string,
   email: string,
@@ -96,5 +121,4 @@ async function getUserWithName(name: string) {
   }
 }
 
-getUserWithEmail("rg535070@gmail.com");
-getUserWithName("Gurpreet Kaur");
+createAddressesTable();
