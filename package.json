@@ -1,0 +1,19 @@
+{
+  "name": "postgrespg",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "module": "true",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@types/pg": "^8.11.6",
+    "dotenv": "^16.4.5",
+    "nodeenv": "^3.0.75",
+    "pg": "^8.11.5"
+  }
+}
